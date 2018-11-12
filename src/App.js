@@ -9,25 +9,28 @@ import AddClients from './components/clients/AddClients'
 import ClientDetails from './components/clients/ClientDetails'
 import EditClient from './components/clients/EditClient'
 import Login from './components/auth/Login'
-import {UserIsAuthenticated,UserIsNotAuthenticated} from './helpers/auth';
+import Settings from './components/settings/Settings';
+import {UserIsAuthenticated, UserIsNotAuthenticated} from './helpers/auth';
+
 class App extends Component {
     render() {
         return (
             <Provider store={store}>
-            <Router>
-                <div className="App">
-                    <AppNavBar/>
-                    <div className="container">
-                        <Switch>
-                            <Route path={"/"} component={UserIsAuthenticated(Dashboard)} exact/>
-                            <Route path={"/login"} component={UserIsNotAuthenticated(Login)} exact/>
-                            <Route path={"/client/add"} component={UserIsAuthenticated(AddClients)} exact/>
-                            <Route path={"/client/:id"} component={UserIsAuthenticated(ClientDetails)} exact/>
-                            <Route path={"/client/edit/:id"} component={UserIsAuthenticated(EditClient)} exact/>
-                        </Switch>
+                <Router>
+                    <div className="App">
+                        <AppNavBar/>
+                        <div className="container">
+                            <Switch>
+                                <Route path={"/"} component={UserIsAuthenticated(Dashboard)} exact/>
+                                <Route path={"/login"} component={UserIsNotAuthenticated(Login)} exact/>
+                                <Route path={"/client/add"} component={UserIsAuthenticated(AddClients)} exact/>
+                                <Route path={"/client/:id"} component={UserIsAuthenticated(ClientDetails)} exact/>
+                                <Route path={"/client/edit/:id"} component={UserIsAuthenticated(EditClient)} exact/>
+                                <Route path={"/settings"} component={UserIsAuthenticated(Settings)} exact/>
+                            </Switch>
+                        </div>
                     </div>
-                </div>
-            </Router>
+                </Router>
             </Provider>
 
         );
