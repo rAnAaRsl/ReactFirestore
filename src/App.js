@@ -5,7 +5,7 @@ import AppNavBar from './components/layout/AppNavbar'
 import Dashboard from './components/layout/Dashboard'
 import store from './store'
 import {Provider} from 'react-redux';
-
+import AddClients from './components/clients/AddClients'
 class App extends Component {
     render() {
         return (
@@ -15,7 +15,8 @@ class App extends Component {
                     <AppNavBar/>
                     <div className="container">
                         <Switch>
-                            <Route to={"/"} component={Dashboard}/>
+                            <Route path={"/"} component={Dashboard} exact/>
+                            <Route path={"/client/add"} component={AddClients} exact/>
                         </Switch>
                     </div>
                 </div>
