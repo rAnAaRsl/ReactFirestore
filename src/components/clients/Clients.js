@@ -4,21 +4,33 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import PropTypes from 'prop-types';
+import Spinner from '../layout/Spinner';
 
 class Clients extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: false,
-            clients: []
+    state = {
+        totalOwed: null
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const {clients} = props;
+        if (clients) {
+
+            const total = clients.reduce((total, client) => {
+                return total + parseFloat(client.balance.toString())
+            }, 0);
+
+            return {totalOwed: total}
         }
+        return null;
     }
 
     render() {
         const {clients} = this.props;
-        if (this.state.isLoading) {
+        const {totalOwed} = this.state;
+
+        if (!clients) {
             return (
-                <h1>Loading</h1>
+                <Spinner/>
             )
         }
         return (
@@ -29,7 +41,12 @@ class Clients extends Component {
                     </div>
 
                     <div className="col-md-6">
-
+                        <h5 className={"text-secondary text-right"}>
+                            Total Owed {' '}
+                            <span className={"text-primary"}>
+                            ${parseFloat(totalOwed).toFixed(2)}
+                        </span>
+                        </h5>
                     </div>
                 </div>
                 <table className="table table-striped">
@@ -73,9 +90,9 @@ class Clients extends Component {
     }
 }
 
-Clients.proptypes={
-    firestore:PropTypes.object.isRequired,
-    clients:PropTypes.array
+Clients.proptypes = {
+    firestore: PropTypes.object.isRequired,
+    clients: PropTypes.array
 }
 
 export default compose(
