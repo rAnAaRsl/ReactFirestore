@@ -7,6 +7,9 @@ import store from './store'
 import {Provider} from 'react-redux';
 import AddClients from './components/clients/AddClients'
 import ClientDetails from './components/clients/ClientDetails'
+import EditClient from './components/clients/EditClient'
+import Login from './components/auth/Login'
+import {UserIsAuthenticated,UserIsNotAuthenticated} from './helpers/auth';
 class App extends Component {
     render() {
         return (
@@ -16,9 +19,11 @@ class App extends Component {
                     <AppNavBar/>
                     <div className="container">
                         <Switch>
-                            <Route path={"/"} component={Dashboard} exact/>
-                            <Route path={"/client/add"} component={AddClients} exact/>
-                            <Route path={"/client/:id"} component={ClientDetails} exact/>
+                            <Route path={"/"} component={UserIsAuthenticated(Dashboard)} exact/>
+                            <Route path={"/login"} component={UserIsNotAuthenticated(Login)} exact/>
+                            <Route path={"/client/add"} component={UserIsAuthenticated(AddClients)} exact/>
+                            <Route path={"/client/:id"} component={UserIsAuthenticated(ClientDetails)} exact/>
+                            <Route path={"/client/edit/:id"} component={UserIsAuthenticated(EditClient)} exact/>
                         </Switch>
                     </div>
                 </div>
