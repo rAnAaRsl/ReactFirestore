@@ -9,6 +9,7 @@ import AddClients from './components/clients/AddClients'
 import ClientDetails from './components/clients/ClientDetails'
 import EditClient from './components/clients/EditClient'
 import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 import Settings from './components/settings/Settings';
 import {UserIsAuthenticated, UserIsNotAuthenticated} from './helpers/auth';
 
@@ -23,6 +24,7 @@ class App extends Component {
                             <Switch>
                                 <Route path={"/"} component={UserIsAuthenticated(Dashboard)} exact/>
                                 <Route path={"/login"} component={UserIsNotAuthenticated(Login)} exact/>
+                                <Route path={"/register"} component={UserIsNotAuthenticated(Register)} exact/>
                                 <Route path={"/client/add"} component={UserIsAuthenticated(AddClients)} exact/>
                                 <Route path={"/client/:id"} component={UserIsAuthenticated(ClientDetails)} exact/>
                                 <Route path={"/client/edit/:id"} component={UserIsAuthenticated(EditClient)} exact/>
